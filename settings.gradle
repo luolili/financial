@@ -1,4 +1,5 @@
 rootProject.name = 'financial'
 include 'util'
 include 'entity'
+include 'manager'
 

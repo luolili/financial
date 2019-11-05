@@ -1,9 +1,12 @@
 package com.luo.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Date;
-
+@Entity(name = "order_t")
 public class Order {
+    @Id
     private String orderId;
     private String chanId;
     private String chanUserId;
