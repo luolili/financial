@@ -1,4 +1,4 @@
 dependencies {
-    compile project(":entity")
+    compile project(":entity") //引入 其他模块
     compile libs.mysql //mysql:cannot load  Driver
 }

@@ -2,6 +2,7 @@ package com.luo.manager.service;
 
 import com.luo.entity.Product;
 import com.luo.entity.enums.ProductStatus;
+import com.luo.manager.error.ErrorEnum;
 import com.luo.manager.repositories.ProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,7 +91,9 @@ public class ProductService {
 
     private void checkProduct(Product product) {
 
-        Assert.notNull(product.getId(), "产品编号不能为空");
+        //Assert.notNull(product.getId(), "产品编号不能为空");
+        Assert.notNull(product.getId(), ErrorEnum.ID_NOT_NULL.getCode());
+
         Assert.isTrue(BigDecimal.ZERO.compareTo(product.getRewardRate())<0,
                 "收益率范围错误");
     }
