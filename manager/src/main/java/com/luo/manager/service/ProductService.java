@@ -21,11 +21,11 @@ public class ProductService {
     private ProductRepository productRepository;
 
     public Product addProduct(Product product) {
-
+logger.info("创建产品");
         //数据校验
         checkProduct(product);
         setDefault(product);
-        return null;
+        return productRepository.save(product);
     }
 
     private void setDefault(Product product) {
