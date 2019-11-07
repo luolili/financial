@@ -29,6 +29,7 @@ public class ProductController {
         return result;
     }
 
+    // 手动 postman:冒烟测试，所以需要自动化测试
     @GetMapping(value = "/{id}")
     public Product get(@PathVariable("id") String id) {
         logger.debug("根据id查询");

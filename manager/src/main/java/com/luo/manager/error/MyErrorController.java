@@ -10,11 +10,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 自定义的错无处理
+ * 自定义的错无处理:第一种方式
  */
 public class MyErrorController extends BasicErrorController {
-
-
+    //ErrorProperties cannot autowire:disable this inspection
     public MyErrorController(ErrorAttributes errorAttributes, ErrorProperties errorProperties, List<ErrorViewResolver> errorViewResolvers) {
         super(errorAttributes, errorProperties, errorViewResolvers);
     }
@@ -29,7 +28,8 @@ public class MyErrorController extends BasicErrorController {
         attrs.remove("path");
         String errorCode = (String) attrs.get("message");
         ErrorEnum errorEnum = ErrorEnum.getByCode(errorCode);
-        attrs.put("message", errorEnum.getCode());
+        attrs.put("message", errorEnum.getDesc());
+        attrs.put("code", errorEnum.getCode());
         attrs.put("canRetry", errorEnum.isCanRetry());
         return attrs;
     }

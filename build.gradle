@@ -8,26 +8,28 @@ version '1.0-SNAPSHOT'
 apply from: "$rootDir/dependencies.gradle"
 
 subprojects {
+    // 应用 插件
     apply plugin: 'java'
     apply plugin: 'war'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
-
+    // jar 仓库
     repositories {
-        mavenLocal()
-
+        mavenLocal()// 首先 使用本地仓库
+        //aliyun 仓库
         maven {
             url = 'http://maven.aliyun.com/nexus/content/groups/public'
         }
-
+        // 远程 仓库
         mavenCentral()
     }
-
+    // 依赖 管理
     dependencies {
         compile libs.common
         testCompile libs.test
     }
+    //// 编码 管理
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 }
 
