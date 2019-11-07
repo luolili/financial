@@ -20,6 +20,18 @@ public class Product {
     private Date createAt;
     private Date updateAt;
 
+    public Product() {
+    }
+
+    public Product(String id, String name, String status, BigDecimal thresholdAmount,
+                   BigDecimal stepAmount, BigDecimal rewardRate) {
+        this.id = id;
+        this.name = name;
+        this.status = status;
+        this.thresholdAmount = thresholdAmount;
+        this.stepAmount = stepAmount;
+        this.rewardRate = rewardRate;
+    }
 
     public String getId() {
         return id;
