@@ -27,7 +27,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 //随机端口
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-//按照 方法名字的字典顺序
+//指定方法执行顺序，按照 方法名字的字典顺序
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ProductControllerTest {
 

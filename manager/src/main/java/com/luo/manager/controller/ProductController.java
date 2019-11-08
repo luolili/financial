@@ -2,6 +2,8 @@ package com.luo.manager.controller;
 
 import com.luo.entity.Product;
 import com.luo.manager.service.ProductService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,11 +19,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/products")
+@Api(tags = "product", description = "产品 ")
 public class ProductController {
     private static Logger logger = LoggerFactory.getLogger(ProductController.class);
     @Autowired
     private ProductService productService;
 
+    @ApiOperation(value = "创建产品", notes = "根据业务创建产品")
     @PostMapping("")
     public Product addProduct(@RequestBody Product product) {
         Product result = productService.addProduct(product);
@@ -29,7 +33,8 @@ public class ProductController {
         return result;
     }
 
-    // 手动 postman:冒烟测试，所以需要自动化测试
+    // 手动 postman:冒烟测试，所以需要自动化测试,优化2
+    @ApiOperation(value = "查询产品", notes = "根据id查询产品")
     @GetMapping(value = "/{id}")
     public Product get(@PathVariable("id") String id) {
         logger.debug("根据id查询");

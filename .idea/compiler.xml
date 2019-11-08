@@ -6,6 +6,8 @@
       <module name="com.luo.entity.test" target="1.8" />
       <module name="com.luo.manager.main" target="1.8" />
       <module name="com.luo.manager.test" target="1.8" />
+      <module name="com.luo.swagger.main" target="1.8" />
+      <module name="com.luo.swagger.test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

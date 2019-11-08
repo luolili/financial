@@ -1,14 +1,21 @@
 package com.luo.entity;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Date;
 @Entity
+@ApiModel(value = "p", description = "产品模型")
 public class Product {
     @Id
     private String id;
     private String name;
+    //点击 Model 查看中文
+    @ApiModelProperty(value = "状态", dataType = "com.luo.entity.enums.ProductStatus")
     private String status;
     private BigDecimal thresholdAmount;
     private BigDecimal stepAmount;

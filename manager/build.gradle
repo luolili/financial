@@ -2,5 +2,6 @@ dependencies {
     //引入 其他模块
     compile project(":entity")
     compile project(":util")
+    compile project(":swagger")
     compile libs.mysql //mysql:cannot load  Driver
 }

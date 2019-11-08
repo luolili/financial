@@ -53,11 +53,11 @@ public class ProductService {
                 if (idList != null && idList.size() > 0) {
                     predicateList.add(idCol.in(idList));
                 }
-                if (BigDecimal.ZERO.compareTo(minRate) < 0) {
+                if (minRate != null && BigDecimal.ZERO.compareTo(minRate) < 0) {
                     predicateList.add(cb.ge(rewardRateCol, minRate));
                 }
 
-                if (BigDecimal.ZERO.compareTo(maxRate) < 0) {
+                if (maxRate != null && BigDecimal.ZERO.compareTo(maxRate) < 0) {
                     predicateList.add(cb.le(rewardRateCol, maxRate));
                 }
                 if (idList != null && idList.size() > 0) {
