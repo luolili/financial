@@ -3,4 +3,5 @@ include 'util'
 include 'entity'
 include 'manager'
 include 'swagger'
+include 'api'
 

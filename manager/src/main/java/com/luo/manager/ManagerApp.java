@@ -17,7 +17,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 //方法1
 //@Import({SwaggerConfiguration.class})
 //方法2
-@EnableMySwagger
+//@EnableMySwagger
+//方法3：spring.factories
 public class ManagerApp {
     public static void main(String[] args) {
         SpringApplication.run(ManagerApp.class, args);

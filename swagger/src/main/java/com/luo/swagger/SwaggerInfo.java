@@ -1,8 +1,10 @@
 package com.luo.swagger;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
+@ConfigurationProperties(prefix = "swagger")
 public class SwaggerInfo {
     private String groupName = "controller";
     private String antPath;
