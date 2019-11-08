@@ -4,8 +4,10 @@ import com.luo.entity.Product;
 import com.luo.entity.enums.ProductStatus;
 import com.luo.util.RestUtil;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,10 +22,13 @@ import java.util.List;
 /**
  * Gradle --Task--build--build :自动化测试
  * 失败的话，jar/war不成功
+ * 直接运行测试类：查看多个测试方法的顺序
  */
 @RunWith(SpringRunner.class)
 //随机端口
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+//按照 方法名字的字典顺序
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ProductControllerTest {
 
     private static RestTemplate rest = new RestTemplate();
@@ -71,7 +76,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void test() {
+    public void create01() {
         Product p1 = new Product("T001", "灵活包1好", ProductStatus.AUDITING.name(),
                 BigDecimal.valueOf(10), BigDecimal.valueOf(1), BigDecimal.valueOf(2.1));
         Product p = RestUtil.postJSON(rest, baseUr + "/products", p1, Product.class);
