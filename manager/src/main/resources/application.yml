@@ -9,9 +9,7 @@ spring:
     hibernate:
       ddl-auto: update
   # timestamp 的时间格式化
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
+
 server:
   context-path: /manager
   port: 8081

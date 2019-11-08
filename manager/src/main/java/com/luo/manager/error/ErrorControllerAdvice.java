@@ -26,7 +26,7 @@ public class ErrorControllerAdvice {
         attrs.put("code", errorEnum.getCode());
         attrs.put("canRetry", errorEnum.isCanRetry());
         // 这里 会走BasicErrorController
-        Assert.isNull(attrs, "advice");
+        //Assert.isNull(attrs, "advice");
         return new ResponseEntity(attrs, HttpStatus.INTERNAL_SERVER_ERROR);
 
     }

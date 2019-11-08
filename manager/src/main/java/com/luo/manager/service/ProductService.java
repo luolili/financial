@@ -34,6 +34,7 @@ public class ProductService {
     }
 
     public Product findOne(String id) {
+        logger.info("根据id查询");
         Assert.notNull(id,"id 不能为空");
         Product one = productRepository.findOne(id);
         return one;
