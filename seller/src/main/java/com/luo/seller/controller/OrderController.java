@@ -21,7 +21,6 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    // 请求2次，第一次 有log,第二次没有
     @GetMapping("/{id}")
     public Product findOne(@PathVariable("id") String id) {
         return productRpcService.findOne(id);
