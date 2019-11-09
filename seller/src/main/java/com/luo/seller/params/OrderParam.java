@@ -1,57 +1,23 @@
-package com.luo.entity;
+package com.luo.seller.params;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.luo.seller.sign.SignText;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Date;
-@Entity(name = "order_t")
-public class Order {
-    @Id
-    private String orderId;
+
+public class OrderParam implements SignText {
     private String chanId;
     private String chanUserId;
-    private String orderType;
     private String productId;
     private String outerOrderId;
     private BigDecimal amount;
-    private String orderStatus;
     private String memo;
     private String createUser;
     private String updateUser;
     // 解决swagger 传时间的问题
     @JsonFormat(pattern = "yyyy-MM-DD HH:mm:ss")
     private Date createAt;
-    @JsonFormat(pattern = "yyyy-MM-DD HH:mm:ss")
-    private Date updateAt;
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "orderId='" + orderId + '\'' +
-                ", chanId='" + chanId + '\'' +
-                ", chanUserId='" + chanUserId + '\'' +
-                ", orderType='" + orderType + '\'' +
-                ", productId='" + productId + '\'' +
-                ", outerOrderId='" + outerOrderId + '\'' +
-                ", amount=" + amount +
-                ", orderStatus='" + orderStatus + '\'' +
-                ", memo='" + memo + '\'' +
-                ", createUser='" + createUser + '\'' +
-                ", updateUser='" + updateUser + '\'' +
-                ", createAt=" + createAt +
-                ", updateAt=" + updateAt +
-                '}';
-    }
-
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
 
     public String getChanId() {
         return chanId;
@@ -67,14 +33,6 @@ public class Order {
 
     public void setChanUserId(String chanUserId) {
         this.chanUserId = chanUserId;
-    }
-
-    public String getOrderType() {
-        return orderType;
-    }
-
-    public void setOrderType(String orderType) {
-        this.orderType = orderType;
     }
 
     public String getProductId() {
@@ -99,14 +57,6 @@ public class Order {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
-    }
-
-    public String getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(String orderStatus) {
-        this.orderStatus = orderStatus;
     }
 
     public String getMemo() {
@@ -139,13 +89,5 @@ public class Order {
 
     public void setCreateAt(Date createAt) {
         this.createAt = createAt;
-    }
-
-    public Date getUpdateAt() {
-        return updateAt;
-    }
-
-    public void setUpdateAt(Date updateAt) {
-        this.updateAt = updateAt;
     }
 }

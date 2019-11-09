@@ -17,3 +17,12 @@ spring:
     broker-url: tcp://10.5.16.14:61616
     packages:
       trust-all: true
+  datasource:
+    url: jdbc:mysql://127.0.0.1/bf?serverTimezone=UTC&characterEncoding=utf-8&userSSL=false
+    username: root
+    password: 123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
