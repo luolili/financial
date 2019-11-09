@@ -37,7 +37,7 @@ public class ProductCache {
         return one;
     }
 
-    //修改 cache
+    //修改 cache，key策略：没有参数：key=0;有一个参数key=param;多个参数：全部参数的hashcode
     @CachePut(cacheNames = CACHE_NAME, key = "#product.id")
     public Product putCache(Product product) {
         return product;

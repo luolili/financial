@@ -1,12 +1,15 @@
 package com.luo.seller.service;
 
 import com.luo.api.ProductRpc;
+import com.luo.api.event.ProductStatusEvent;
 import com.luo.entity.Product;
+import com.luo.entity.enums.ProductStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -82,5 +85,18 @@ public class ProductRpcService implements ApplicationListener<ContextRefreshedEv
     //@PostConstruct
     public void init() {
         findOne("T001");
+    }
+
+    private static final String MQ_DEST = "Consumer.cache.VirtualTopic.PRODUCT_STATUS";
+
+    @JmsListener(destination = MQ_DEST)
+    void updateStatus(ProductStatusEvent e) {
+        logger.info("receive msg:{}", e);
+        productCache.removeCache(e.getId());
+        if (ProductStatus.IN_SELL.getDesc().equals(e.getStatus())) {
+            productCache.readCache(e.getId());
+
+
+        }
     }
 }

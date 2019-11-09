@@ -5,4 +5,5 @@ dependencies {
     compile project(":swagger")
     compile project(":api")
     compile libs.mysql //mysql:cannot load  Driver
+    compile libs.activemq
 }
