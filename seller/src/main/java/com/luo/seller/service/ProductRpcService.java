@@ -1,21 +1,15 @@
 package com.luo.seller.service;
 
 import com.luo.api.ProductRpc;
-import com.luo.api.domain.ProductRpcReq;
 import com.luo.entity.Product;
-import com.luo.entity.enums.ProductStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.List;
-
 /**
  * 常见err:
  * 1.先要启动manager,在启动seller,否则 数据库连接失败
@@ -24,13 +18,25 @@ import java.util.List;
  * 4. json 格式化错误：rpc 的接口的参数不能是接口如：Pageable和复杂对象
  */
 @Service
-public class ProductRpcService {
+public class ProductRpcService implements ApplicationListener<ContextRefreshedEvent> {
     private static Logger logger = LoggerFactory.getLogger(ProductRpcService.class);
     @Autowired
     private ProductRpc productRpc;
 
+    @Autowired
+    private ProductCache productCache;
+
+    //初始化缓存
+    @Override
+    public void onApplicationEvent(ContextRefreshedEvent event) {
+        List<Product> productList = findAll();
+        productList.forEach(p -> {
+            productCache.putCache(p);
+        });
+    }
+
     public List<Product> findAll() {
-        ProductRpcReq req = new ProductRpcReq();
+       /* ProductRpcReq req = new ProductRpcReq();
         List<String> status = new ArrayList<>();
         status.add(ProductStatus.IN_SELL.getDesc());
         Pageable pageable = new PageRequest(0, 10, Sort.Direction.DESC, "rewardRate");
@@ -43,21 +49,28 @@ public class ProductRpcService {
         logger.info("query all products: req:{}", req);
         List<Product> result = productRpc.query(req);
         logger.info("rpc res:{}", result);
-        return result;
+        return result;*/
+        return productCache.readAllCache();
 
     }
 
     //test findAll
-    @PostConstruct
+    //@PostConstruct
     public void testFindAll() {
         findAll();
     }
 
+    //@Cacheable(cacheNames = {"my_product"})
     public Product findOne(String id) {
-        logger.info("单个 产品 id 查询：{}", id);
+        /*logger.info("单个 产品 id 查询：{}", id);
         Product one = productRpc.findOne(id);
-        logger.info("res p:{}", one);
-        return one;
+        logger.info("res p:{}", one);*/
+        Product product = productCache.readCache(id);
+        //防止cache 里面的null 数据
+        if (null == product) {
+            productCache.readCache(id);
+        }
+        return product;
     }
 
     /**
@@ -66,7 +79,7 @@ public class ProductRpcService {
      * DEBUG 7012 --- [           main] c.g.j.s.AutoJsonRpcClientProxyCreator
      * : Found JSON-RPC service to proxy [com.luo.api.ProductRpc] on path 'rpc/products'.
      */
-    @PostConstruct
+    //@PostConstruct
     public void init() {
         findOne("T001");
     }

@@ -1,16 +1,16 @@
 package com.luo.entity;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 @Entity
 @ApiModel(value = "p", description = "产品模型")
-public class Product {
+public class Product implements Serializable {
     @Id
     private String id;
     private String name;
