@@ -7,7 +7,6 @@ import com.luo.entity.enums.ProductStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -52,5 +51,23 @@ public class ProductRpcService {
     @PostConstruct
     public void testFindAll() {
         findAll();
+    }
+
+    public Product findOne(String id) {
+        logger.info("单个 产品 id 查询：{}", id);
+        Product one = productRpc.findOne(id);
+        logger.info("res p:{}", one);
+        return one;
+    }
+
+    /**
+     * log:
+     * c.g.j.s.AutoJsonRpcClientProxyCreator    : |Scanning 'classpath:com/luo/api/星星/:' for JSON-RPC service interfaces.
+     * DEBUG 7012 --- [           main] c.g.j.s.AutoJsonRpcClientProxyCreator
+     * : Found JSON-RPC service to proxy [com.luo.api.ProductRpc] on path 'rpc/products'.
+     */
+    @PostConstruct
+    public void init() {
+        findOne("T001");
     }
 }

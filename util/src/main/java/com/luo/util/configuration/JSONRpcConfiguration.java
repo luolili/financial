@@ -1,5 +1,7 @@
 package com.luo.util.configuration;
 
+import com.googlecode.jsonrpc4j.spring.AutoJsonRpcClientProxyCreator;
+import com.googlecode.jsonrpc4j.spring.AutoJsonRpcServiceImplExporter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +19,6 @@ import java.net.URL;
 @Configuration
 public class JSONRpcConfiguration {
     private static Logger LOG = LoggerFactory.getLogger(JSONRpcConfiguration.class);
-    /*
     @Bean
     public AutoJsonRpcServiceImplExporter rpcServiceImplExporter(){
         return new AutoJsonRpcServiceImplExporter();
@@ -25,7 +26,7 @@ public class JSONRpcConfiguration {
 
     @Bean
     @ConditionalOnProperty(value = {"rpc.client.url","rpc.client.basePackage"})
-    public AutoJsonRpcClientProxyCreator rpcClientProxyCreator(@Value("${rpc.client.url}") String url,@Value("${rpc.client.basePackage}") String basePackage) {
+    public AutoJsonRpcClientProxyCreator rpcClientProxyCreator(@Value("${rpc.client.url}") String url, @Value("${rpc.client.basePackage}") String basePackage) {
         AutoJsonRpcClientProxyCreator creator = new AutoJsonRpcClientProxyCreator();
         try {
             creator.setBaseUrl(new URL(url));
@@ -35,5 +36,4 @@ public class JSONRpcConfiguration {
         creator.setScanPackage(basePackage);
         return creator;
     }
-    */
 }
