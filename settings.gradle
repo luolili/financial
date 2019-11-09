@@ -4,4 +4,6 @@ include 'entity'
 include 'manager'
 include 'swagger'
 include 'api'
+include 'seller'
+include 'seller'
 
