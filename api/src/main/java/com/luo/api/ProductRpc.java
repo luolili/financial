@@ -5,10 +5,13 @@ import com.luo.api.domain.ProductRpcReq;
 import com.luo.entity.Product;
 import org.springframework.data.domain.Page;
 
-@JsonRpcService("/products")
+import java.util.List;
+
+//不以 / 开始
+@JsonRpcService("rpc/products")
 public interface ProductRpc {
 
-    Page<Product> query(ProductRpcReq req);
+    List<Product> query(ProductRpcReq req);
 
-    Product fidOe(String id);
+    Product findOne(String id);
 }
