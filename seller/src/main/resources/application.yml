@@ -9,4 +9,4 @@ logging:
 rpc:
   client:
     url: http://localhost:8081/manager/
-    basePackage: com.luo.api.ProductRpc
+    basePackage: com.luo.api
