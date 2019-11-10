@@ -5,7 +5,6 @@ import com.luo.seller.repobackup.VerifyRepository;
 import com.luo.seller.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -52,8 +51,7 @@ public class DataAccessConfiguration {
     @Bean
     @Primary
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
-            EntityManagerFactoryBuilder builder, @Qualifier("primaryDataSource") DataSource dataSource
-    ) {
+            EntityManagerFactoryBuilder builder, @Qualifier("primaryDataSource") DataSource dataSource) {
         return builder.dataSource(dataSource)
                 .packages(Order.class)
                 .properties(getVendorProperties(dataSource))
@@ -61,11 +59,9 @@ public class DataAccessConfiguration {
                 .build();
     }
 
-
     @Bean
     public LocalContainerEntityManagerFactoryBean backupCustomerEntityManagerFactory(
-            EntityManagerFactoryBuilder builder, @Qualifier("backupDataSource") DataSource dataSource
-    ) {
+            EntityManagerFactoryBuilder builder, @Qualifier("backupDataSource") DataSource dataSource) {
         return builder.dataSource(dataSource)
                 .packages(Order.class)
                 .properties(getVendorProperties(dataSource))
@@ -79,17 +75,16 @@ public class DataAccessConfiguration {
         return vendorProperties;
     }
 
-    //tx
+    //tx:名字必须 是 transactionManager；参数名必须是 entityManagerFactory
     @Bean
-    @ConditionalOnMissingBean(PlatformTransactionManager.class)
-    public PlatformTransactionManager primaryTransactionManager(@Qualifier("entityManagerFactory")
-                                                                        LocalContainerEntityManagerFactoryBean primaryCustomerEntityManagerFactory) {
-        JpaTransactionManager transactionManager = new JpaTransactionManager(primaryCustomerEntityManagerFactory.getObject());
+    @Primary
+    public PlatformTransactionManager transactionManager(@Qualifier("entityManagerFactory")
+                                                                 LocalContainerEntityManagerFactoryBean entityManagerFactory) {
+        JpaTransactionManager transactionManager = new JpaTransactionManager(entityManagerFactory.getObject());
         return transactionManager;
     }
 
     @Bean
-    @ConditionalOnMissingBean(PlatformTransactionManager.class)
     public PlatformTransactionManager backupTransactionManager(@Qualifier("backupCustomerEntityManagerFactory")
                                                                        LocalContainerEntityManagerFactoryBean backupCustomerEntityManagerFactory) {
         JpaTransactionManager transactionManager = new JpaTransactionManager(backupCustomerEntityManagerFactory.getObject());

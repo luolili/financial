@@ -2,6 +2,7 @@ package com.luo.seller;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IMap;
+import com.luo.seller.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +19,7 @@ public class HaselcastTest {
     public void test() {
         Map map = hazelcastInstance.getMap("mee");
         ((IMap<Object, Object>) map).put("name", "mee");
-
-
     }
+
+
 }
