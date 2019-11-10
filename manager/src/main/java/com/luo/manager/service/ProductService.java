@@ -36,8 +36,11 @@ public class ProductService {
     public Product findOne(String id) {
         logger.info("根据id查询");
         Assert.notNull(id,"id 不能为空");
-        Product one = productRepository.findOne(id);
-        return one;
+        //Product one = productRepository.findOne(id);
+        //boot2
+        Product product = productRepository.findById(id).orElse(null);
+
+        return product;
     }
 
     //付咋查询

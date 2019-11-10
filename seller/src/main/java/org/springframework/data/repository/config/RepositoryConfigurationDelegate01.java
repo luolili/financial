@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 the original author or authors.
+ * Copyright 2014-2016 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,32 +15,17 @@
  */
 package org.springframework.data.repository.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.parsing.BeanComponentDefinition;
-import org.springframework.beans.factory.support.AbstractBeanDefinition;
-import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
-import org.springframework.core.env.EnvironmentCapable;
-import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.core.io.support.SpringFactoriesLoader;
-import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.data.repository.core.support.RepositoryFactorySupport;
-import org.springframework.util.Assert;
-
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
- *
+ * 当您的类名和源码里面的类名一样的时候，先用自己的类
  */
-public class RepositoryConfigurationDelegate {
-
+public class RepositoryConfigurationDelegate01 {
+ /*
     private static final Logger LOGGER = LoggerFactory.getLogger(RepositoryConfigurationDelegate.class);
 
     private static final String REPOSITORY_REGISTRATION = "Spring Data {} - Registering repository: {} - Interface: {} - Factory: {}";
@@ -51,17 +36,18 @@ public class RepositoryConfigurationDelegate {
     private final RepositoryConfigurationSource configurationSource;
     private final ResourceLoader resourceLoader;
     private final Environment environment;
+    private final BeanNameGenerator beanNameGenerator;
     private final boolean isXml;
     private final boolean inMultiStoreMode;
 
-    /**
+    *//**
      * Creates a new {@link RepositoryConfigurationDelegate} for the given {@link RepositoryConfigurationSource} and
      * {@link ResourceLoader} and {@link Environment}.
      *
      * @param configurationSource must not be {@literal null}.
-     * @param resourceLoader must not be {@literal null}.
-     * @param environment must not be {@literal null}.
-     */
+     * @param resourceLoader      must not be {@literal null}.
+     * @param environment         must not be {@literal null}.
+     *//*
     public RepositoryConfigurationDelegate(RepositoryConfigurationSource configurationSource,
                                            ResourceLoader resourceLoader, Environment environment) {
 
@@ -72,22 +58,25 @@ public class RepositoryConfigurationDelegate {
                 "Configuration source must either be an Xml- or an AnnotationBasedConfigurationSource!");
         Assert.notNull(resourceLoader, "ResourceLoader must not be null!");
 
+        RepositoryBeanNameGenerator generator = new RepositoryBeanNameGenerator();
+        generator.setBeanClassLoader(resourceLoader.getClassLoader());
+
+        this.beanNameGenerator = generator;
         this.configurationSource = configurationSource;
         this.resourceLoader = resourceLoader;
         this.environment = defaultEnvironment(environment, resourceLoader);
         this.inMultiStoreMode = multipleStoresDetected();
     }
 
-    /**
+    *//**
      * Defaults the environment in case the given one is null. Used as fallback, in case the legacy constructor was
      * invoked.
      *
-     * @param environment can be {@literal null}.
+     * @param environment    can be {@literal null}.
      * @param resourceLoader can be {@literal null}.
      * @return
-     */
-    private static Environment defaultEnvironment(@Nullable Environment environment,
-                                                  @Nullable ResourceLoader resourceLoader) {
+     *//*
+    private static Environment defaultEnvironment(Environment environment, ResourceLoader resourceLoader) {
 
         if (environment != null) {
             return environment;
@@ -97,13 +86,13 @@ public class RepositoryConfigurationDelegate {
                 : new StandardEnvironment();
     }
 
-    /**
+    *//**
      * Registers the found repositories in the given {@link BeanDefinitionRegistry}.
      *
      * @param registry
      * @param extension
      * @return {@link BeanComponentDefinition}s for all repository bean definitions found.
-     */
+     *//*
     public List<BeanComponentDefinition> registerRepositoriesIn(BeanDefinitionRegistry registry,
                                                                 RepositoryConfigurationExtension extension) {
 
@@ -111,7 +100,7 @@ public class RepositoryConfigurationDelegate {
 
         RepositoryBeanDefinitionBuilder builder = new RepositoryBeanDefinitionBuilder(registry, extension, resourceLoader,
                 environment);
-        List<BeanComponentDefinition> definitions = new ArrayList<>();
+        List<BeanComponentDefinition> definitions = new ArrayList<BeanComponentDefinition>();
 
         for (RepositoryConfiguration<? extends RepositoryConfigurationSource> configuration : extension
                 .getRepositoryConfigurations(configurationSource, resourceLoader, inMultiStoreMode)) {
@@ -127,22 +116,24 @@ public class RepositoryConfigurationDelegate {
             }
 
             AbstractBeanDefinition beanDefinition = definitionBuilder.getBeanDefinition();
-            String beanName = configurationSource.generateBeanName(beanDefinition);
+            String beanName = beanNameGenerator.generateBeanName(beanDefinition, registry);
 
+            //
             AnnotationMetadata metadata = (AnnotationMetadata) configurationSource.getSource();
-
-            //判断配置类是否使用primary进行了标注，如果有，就设为primary
             if (metadata.hasAnnotation(Primary.class.getName())) {
                 beanDefinition.setPrimary(true);
+
             } else if (metadata.hasAnnotation(RepositoryBeanNamePrefix.class.getName())) {
-                // 再判断是否使用了RepositoryBeanNamePrefix进行了标注，如果有，添加名称前缀
                 Map<String, Object> prefixData = metadata.getAnnotationAttributes(RepositoryBeanNamePrefix.class.getName());
                 String prefix = (String) prefixData.get("value");
-                beanName = prefix + beanName;
+                beanName = prefix + beanName;//注入的 repo的名字
+
+
             }
+
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug(REPOSITORY_REGISTRATION, extension.getModuleName(), beanName,
-                        configuration.getRepositoryInterface(), configuration.getRepositoryFactoryBeanClassName());
+                        configuration.getRepositoryInterface(), extension.getRepositoryFactoryClassName());
             }
 
             beanDefinition.setAttribute(FACTORY_BEAN_OBJECT_TYPE, configuration.getRepositoryInterface());
@@ -154,13 +145,13 @@ public class RepositoryConfigurationDelegate {
         return definitions;
     }
 
-    /**
+    *//**
      * Scans {@code repository.support} packages for implementations of {@link RepositoryFactorySupport}. Finding more
      * than a single type is considered a multi-store configuration scenario which will trigger stricter repository
      * scanning.
      *
      * @return
-     */
+     *//*
     private boolean multipleStoresDetected() {
 
         boolean multipleModulesFound = SpringFactoriesLoader
@@ -172,4 +163,5 @@ public class RepositoryConfigurationDelegate {
 
         return multipleModulesFound;
     }
+  */
 }

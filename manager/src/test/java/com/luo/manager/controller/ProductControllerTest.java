@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.Assert;
@@ -23,6 +22,7 @@ import java.util.List;
  * Gradle --Task--build--build :自动化测试
  * 失败的话，jar/war不成功
  * 直接运行测试类：查看多个测试方法的顺序
+ * 升级boot2:利用测试 来看还有什么问题
  */
 @RunWith(SpringRunner.class)
 //随机端口

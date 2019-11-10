@@ -24,10 +24,14 @@ public class VerifyOrder {
     @Autowired
     private OrderRepository backupOrderRepository;
 
-    //是哟个其他名字
-    @Autowired
+    //use 其他名字
+   /* @Autowired
     @Qualifier("backupOrderRepository")//注入的名字 是backupOrderRepository
-    private OrderRepository backOrderRepository;
+    private OrderRepository backOrderRepository;*/
+    //use 其他名字
+    @Autowired
+    @Qualifier("readorderRepository")//注入的名字 是backupOrderRepository
+    private OrderRepository readOrderRepository;//属性可以任意写
 
     @Autowired
     private OrderRepository orderRepository;
@@ -40,13 +44,20 @@ public class VerifyOrder {
      * RepositoryConfigurationDelegate registerRepositoriesIn
      * beanName 断点
      * com.luo.seller.configuration.DataAccessConfiguration$BackupConfiguration
+     *
+     * 实现读写分离 的方法：
+     * 1. 读的repo和写的repo放在不同的包
+     * 2.写注解：拦截 beanName
+     * 升级boot2 测试
      */
     @Test
     public void queryOrder() {
-        List<Order> all = backOrderRepository.findAll();
+        //List<Order> all = backOrderRepository.findAll();
         List<Order> a2 = orderRepository.findAll();
+        List<Order> a3 = readOrderRepository.findAll();
 
-        System.out.println("backup:" + all);
+        //System.out.println("backup:" + all);
         System.out.println("pri:" + a2);
+        System.out.println("read repo:" + a3);
     }
 }

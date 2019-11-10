@@ -2,7 +2,9 @@ package com.luo.seller.service;
 
 import com.luo.entity.VerificationOrder;
 import com.luo.seller.enums.ChanEnum;
+import com.luo.seller.repobackup.VerifyRepository;
 import org.aspectj.util.FileUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +23,8 @@ import java.util.List;
 @Service
 public class VerifyService {
 
-//    @Autowired
-//    private VerifyRepository verifyRepository;
+    @Autowired
+    private VerifyRepository verifyRepository;
 
     @Value("${verification.rootdir:/opt/verification}")
     private String rootDir;
@@ -107,5 +109,7 @@ public class VerifyService {
             orderList.add(parseLine(line));
         }
         //verifyRepository.save(orderList);
+        //boot2
+        verifyRepository.saveAll(orderList);
     }
 }

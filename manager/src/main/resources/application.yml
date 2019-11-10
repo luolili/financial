@@ -14,7 +14,9 @@ spring:
   jms:
     pub-sub-domain: true
 server:
-  context-path: /manager
+  #boot2 加了servlet
+  servlet:
+    context-path: /manager
   port: 8081
 swagger:
   groupName: manager
