@@ -48,10 +48,10 @@ public class DataAccessConfiguration {
         return DataSourceBuilder.create().build();
     }
 
-
+    //配置 entityManagerFactory ，必须配置 一个名字 叫entityManagerFactory ，否则报错
     @Bean
     @Primary
-    public LocalContainerEntityManagerFactoryBean primaryCustomerEntityManagerFactory(
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(
             EntityManagerFactoryBuilder builder, @Qualifier("primaryDataSource") DataSource dataSource
     ) {
         return builder.dataSource(dataSource)
@@ -82,7 +82,7 @@ public class DataAccessConfiguration {
     //tx
     @Bean
     @ConditionalOnMissingBean(PlatformTransactionManager.class)
-    public PlatformTransactionManager primaryTransactionManager(@Qualifier("primaryCustomerEntityManagerFactory")
+    public PlatformTransactionManager primaryTransactionManager(@Qualifier("entityManagerFactory")
                                                                         LocalContainerEntityManagerFactoryBean primaryCustomerEntityManagerFactory) {
         JpaTransactionManager transactionManager = new JpaTransactionManager(primaryCustomerEntityManagerFactory.getObject());
         return transactionManager;
