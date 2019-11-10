@@ -33,6 +33,14 @@ public class VerifyOrder {
     private OrderRepository orderRepository;
 
     // 读写 分离测试
+
+    /**
+     * JpaRepositoriesRegistrar--RepositoryBeanDefinitionRegistrarSupport
+     * registerBeanDefinition
+     * RepositoryConfigurationDelegate registerRepositoriesIn
+     * beanName 断点
+     * com.luo.seller.configuration.DataAccessConfiguration$BackupConfiguration
+     */
     @Test
     public void queryOrder() {
         List<Order> all = backOrderRepository.findAll();
