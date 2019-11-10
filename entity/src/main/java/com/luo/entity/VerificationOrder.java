@@ -17,7 +17,6 @@ public class VerificationOrder {
     private String productId;
     private String outerOrderId;
     private BigDecimal amount;
-    private String memo;
     private String createUser;
     private String updateUser;
     // 解决swagger 传时间的问题
@@ -81,14 +80,6 @@ public class VerificationOrder {
         this.amount = amount;
     }
 
-    public String getMemo() {
-        return memo;
-    }
-
-    public void setMemo(String memo) {
-        this.memo = memo;
-    }
-
     public String getCreateUser() {
         return createUser;
     }
@@ -123,7 +114,6 @@ public class VerificationOrder {
                 ", productId='" + productId + '\'' +
                 ", outerOrderId='" + outerOrderId + '\'' +
                 ", amount=" + amount +
-                ", memo='" + memo + '\'' +
                 ", createUser='" + createUser + '\'' +
                 ", updateUser='" + updateUser + '\'' +
                 ", createAt=" + createAt +
