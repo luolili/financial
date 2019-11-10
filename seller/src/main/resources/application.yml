@@ -13,15 +13,16 @@ rpc:
 spring:
   cache:
     type: hazelcast
-  activemq:
-    broker-url: tcp://10.5.16.14:61616
-    packages:
-      trust-all: true
+  #  activemq:
+  #    broker-url: tcp://10.5.16.14:61616
+  #    packages:
+  #      trust-all: true
   datasource:
-    url: jdbc:mysql://127.0.0.1/bf?serverTimezone=UTC&characterEncoding=utf-8&userSSL=false
-    username: root
-    password: 123
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    primary:
+      url: jdbc:mysql://127.0.0.1/bf?user=root&password=123&serverTimezone=UTC&characterEncoding=utf-8&userSSL=false
+    backup:
+      url: jdbc:mysql://127.0.0.1/bf-backup?user=root&password=123&serverTimezone=UTC&characterEncoding=utf-8&userSSL=false
+
   jpa:
     show-sql: true
     hibernate:

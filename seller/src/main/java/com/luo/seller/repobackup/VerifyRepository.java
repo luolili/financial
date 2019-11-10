@@ -1,4 +1,4 @@
-package com.luo.seller.repositories;
+package com.luo.seller.repobackup;
 
 import com.luo.entity.VerificationOrder;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -4,7 +4,6 @@ import com.luo.entity.Order;
 import com.luo.entity.Product;
 import com.luo.entity.enums.OrderStatus;
 import com.luo.entity.enums.OrderType;
-import com.luo.seller.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -14,8 +13,8 @@ import java.util.UUID;
 
 @Service
 public class OrderService {
-    @Autowired
-    private OrderRepository orderRepository;
+//    @Autowired
+//    private OrderRepository orderRepository;
 
     @Autowired
     private ProductRpcService productRpcService;
@@ -24,7 +23,7 @@ public class OrderService {
 
         checkOrder(order);
         completeOrder(order);
-        order = orderRepository.saveAndFlush(order);
+        //order = orderRepository.saveAndFlush(order);
         return order;
     }
 

@@ -2,10 +2,7 @@ package com.luo.seller.service;
 
 import com.luo.entity.VerificationOrder;
 import com.luo.seller.enums.ChanEnum;
-import com.luo.seller.repositories.OrderRepository;
-import com.luo.seller.repositories.VerifyRepository;
 import org.aspectj.util.FileUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -23,11 +20,9 @@ import java.util.List;
 //对账
 @Service
 public class VerifyService {
-    @Autowired
-    private OrderRepository orderRepository;
 
-    @Autowired
-    private VerifyRepository verifyRepository;
+//    @Autowired
+//    private VerifyRepository verifyRepository;
 
     @Value("${verification.rootdir:/opt/verification}")
     private String rootDir;
@@ -53,8 +48,8 @@ public class VerifyService {
             e.printStackTrace();
         }
         Date end = new Date(start.getTime() + 1000 * 60 * 60 * 24);
-        List<String> list = verifyRepository.queryVerificationOrders(chanId, start, end);
-        String content = String.join(END_LINE, list);
+        // List<String> list = verifyRepository.queryVerificationOrders(chanId, start, end);
+        String content = String.join(END_LINE, new ArrayList<>());
         FileUtil.writeAsString(path, content);
         return path;
 
@@ -111,6 +106,6 @@ public class VerifyService {
         for (String line : lines) {
             orderList.add(parseLine(line));
         }
-        verifyRepository.save(orderList);
+        //verifyRepository.save(orderList);
     }
 }
