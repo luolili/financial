@@ -6,7 +6,7 @@ group 'com.luo'
 version '1.0-SNAPSHOT'
 
 apply from: "$rootDir/dependencies.gradle"
-
+//subprojects 是一个方法，每个脚本 都有一个 Project实例，version 是他的一个属性
 subprojects {
     // 应用 插件
     apply plugin: 'java'

@@ -13,4 +13,11 @@ gradle 基于maven 构建，用 groovy :领域驱动语言。
 
 groovy兼容 java 语法。
 
+build -->jar:在build -->libs
+
+运行jar:
+F:\githubpro\financial\groovy>
+java -classpath build/libs/groovy-1.0-SNAPSHOT.jar com.luo.gradle.todo.App
+
+
 
