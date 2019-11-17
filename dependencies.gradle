@@ -14,7 +14,9 @@ ext {
             findbugs: [
                     "com.google.code.findbugs:jsr305:1.3.9"
             ],
-
+            quartz: [
+                    "org.springframework.boot:spring-boot-starter-quartz:${versions.springBootVersion}"
+            ],
             jsonrpc:[
               "com.github.briandilley.jsonrpc4j:jsonrpc4j:1.5.0"
             ],
