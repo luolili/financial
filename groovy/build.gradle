@@ -1,7 +1,8 @@
 plugins {
     id 'java'
 }
-
+// webapp war build 下面多了war
+apply plugin:'war'
 group 'com.luo'
 version '1.0-SNAPSHOT'
 
@@ -13,4 +14,33 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+// 定义 闭包
+def createDir ={
+path ->
+    File dir = new File(path)
+    if(!dir.exists()) {
+        dir.mkdir()
+    }
+}
+//自定义 task
+task makeJavaDir{
+    def paths = ['src/test/java','src/resources/java']
+    doFirst{
+        paths.forEach(createDir)
+    }
+}
+
+
+task makeJavaWebDir{
+    //依赖其他的任务
+    dependsOn 'makeJavaDir'
+    def paths = ['src/main/webapp','src/test/webapp']
+   /* doFirst{
+        paths.forEach(createDir)
+    }*/
+    doLast{
+        paths.forEach(createDir)
+    }
 }

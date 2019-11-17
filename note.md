@@ -19,5 +19,17 @@ build -->jar:在build -->libs
 F:\githubpro\financial\groovy>
 java -classpath build/libs/groovy-1.0-SNAPSHOT.jar com.luo.gradle.todo.App
 
+project+task:一个 project 包含多个 task。
+
+project 的attr:
+
+group,name,version:坐标.
+
+project method:
+
+apply,dependencies,task,repositories.
+
+task:dependsOn,doFirst/Last
+
 
 
