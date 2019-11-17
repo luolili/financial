@@ -1,4 +1,5 @@
 rootProject.name = 'financial'
+//setting.gradle 管理 子pro
 include 'util'
 include 'entity'
 include 'manager'

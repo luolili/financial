@@ -7,10 +7,27 @@ version '1.0-SNAPSHOT'
 
 apply from: "$rootDir/dependencies.gradle"
 //subprojects 是一个方法，每个脚本 都有一个 Project实例，version 是他的一个属性
+//也可以哟个allprojects
 subprojects {
     // 应用 插件
     apply plugin: 'java'
     apply plugin: 'war'
+    //luo 在 C 盘
+    apply plugin: 'maven-publish'
+    publishing{
+        publications{
+            myPublish(MavenPublication){
+                from components.java
+            }
+        }
+        repositories {
+            maven {
+                name "myRepo"
+                url ""
+            }
+        }
+    }
+
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8

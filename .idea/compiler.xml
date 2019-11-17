@@ -2,16 +2,38 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="com.luo.api.main" target="1.8" />
-      <module name="com.luo.api.test" target="1.8" />
-      <module name="com.luo.entity.main" target="1.8" />
-      <module name="com.luo.entity.test" target="1.8" />
-      <module name="com.luo.manager.main" target="1.8" />
-      <module name="com.luo.manager.test" target="1.8" />
-      <module name="com.luo.seller.main" target="1.8" />
-      <module name="com.luo.seller.test" target="1.8" />
-      <module name="com.luo.swagger.main" target="1.8" />
-      <module name="com.luo.swagger.test" target="1.8" />
+      <module name="'com.luo'.api.main" target="1.8" />
+      <module name="'com.luo'.api.test" target="1.8" />
+      <module name="'com.luo'.entity.main" target="1.8" />
+      <module name="'com.luo'.entity.test" target="1.8" />
+      <module name="'com.luo'.groovy.main" target="1.8" />
+      <module name="'com.luo'.groovy.test" target="1.8" />
+      <module name="'com.luo'.manager.main" target="1.8" />
+      <module name="'com.luo'.manager.test" target="1.8" />
+      <module name="'com.luo'.quartz.main" target="1.8" />
+      <module name="'com.luo'.quartz.test" target="1.8" />
+      <module name="'com.luo'.seller.main" target="1.8" />
+      <module name="'com.luo'.seller.test" target="1.8" />
+      <module name="'com.luo'.swagger.main" target="1.8" />
+      <module name="'com.luo'.swagger.test" target="1.8" />
+      <module name="'com.luo'.util.main" target="1.8" />
+      <module name="'com.luo'.util.test" target="1.8" />
+      <module name="financial.api.main" target="1.8" />
+      <module name="financial.api.test" target="1.8" />
+      <module name="financial.entity.main" target="1.8" />
+      <module name="financial.entity.test" target="1.8" />
+      <module name="financial.groovy.main" target="1.8" />
+      <module name="financial.groovy.test" target="1.8" />
+      <module name="financial.manager.main" target="1.8" />
+      <module name="financial.manager.test" target="1.8" />
+      <module name="financial.quartz.main" target="1.8" />
+      <module name="financial.quartz.test" target="1.8" />
+      <module name="financial.seller.main" target="1.8" />
+      <module name="financial.seller.test" target="1.8" />
+      <module name="financial.swagger.main" target="1.8" />
+      <module name="financial.swagger.test" target="1.8" />
+      <module name="financial.util.main" target="1.8" />
+      <module name="financial.util.test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
