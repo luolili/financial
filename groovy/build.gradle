@@ -9,11 +9,24 @@ version '1.0-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
+configurations.all{
+    resolutionStrategy{
+        failOnVersionConflict()//有conflict的时候报错
+        //强制 制定一个版本
+        force 'org.hibernate:hibernate-core:3.6.3.Final'
+        force 'org.slf4j:slf4j-api:1.7.25'
+    }
+}
 dependencies {
+    //版本conflict
+    compile 'org.hibernate:hibernate-core:3.6.3.Final'
+    //多 use compile
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    //testRuntime group: 'junit', name: 'junit', version: '4.12'
 }
 
 // 定义 闭包
@@ -34,12 +47,13 @@ task makeJavaDir{
 
 
 task makeJavaWebDir{
-    //依赖其他的任务
+    //依赖其他的任务,config stage
     dependsOn 'makeJavaDir'
     def paths = ['src/main/webapp','src/test/webapp']
    /* doFirst{
         paths.forEach(createDir)
     }*/
+    //execute stage
     doLast{
         paths.forEach(createDir)
     }

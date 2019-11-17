@@ -31,5 +31,12 @@ apply,dependencies,task,repositories.
 
 task:dependsOn,doFirst/Last
 
+lifecycle:init,config,execute,hook 方法
 
+依赖：
+maveLocal/mavenCentral/jcenter;自定义repo.
+
+依赖传递
+
+版本冲突：默认依赖最高版本
 
